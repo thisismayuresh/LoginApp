@@ -1,0 +1,6 @@
+1.Make Login UI ( Perform and Required Validations) Use HTML,CSS,Bootstrap
+2.Can Use PHP for Froentend Validations
+3.Entire Project is created using Object-Oriented Approach.
+4. 
+
+
