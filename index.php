@@ -22,8 +22,9 @@
       }
    }
 ?>
+  <h1 id="msg"></h1>
 <div class="signup-form">
-    <form method="post" name="registration-form" action="index.php">
+    <form method="post" name="google-sheet" action="https://script.google.com/macros/s/AKfycbx5iNL2laKW5E43wf-vKekYz8Z4rth_tv2W0jQzzIlrlpXSJ9z_nKqk1AFUPjbwsFzDKQ/exec">
     <h2>Register</h2>
     <p class="hint-text">Create your account. It is free and only takes a minute.</p>
       <div class="form-group">
@@ -65,23 +66,27 @@
       <label class="form-check-label"><input required <?php if(isset($user['terms'])) { echo 'checked'; } ?> type="checkbox" name="terms">&nbsp;I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
     </div>
     <div class="form-group">
-            <input type="submit" name="submit" class="btn btn-success btn-lg btn-block" value="Register Now">
+            <input type="submit" id ="sub" name="submit" class="btn btn-success btn-lg btn-block" value="Register Now">
         </div>
 
             <script>
 
-                const scriptURL="https://script.google.com/a/macros/bsf.io/s/AKfycby0xsmjYTC-8w_tUrdhlRO7qT4KYX_XumpTtS1HNZxDARxdiB_9lPmP5wY6jmy7uRQ-vA/exec";
-                const forms=document.forms["registration-form"];
+               form.addEventListener('submit',(e)=>{
+                  e.preventDefault();
+                  document.querySelector("#sub").value="Submitting....";
+                  let data=new FormData(form);  
+                  fetch('https://script.google.com/macros/s/AKfycbx5iNL2laKW5E43wf-vKekYz8Z4rth_tv2W0jQzzIlrlpXSJ9z_nKqk1AFUPjbwsFzDKQ/exec',{
+                     method:"POST",
+                     body:data
+                  })
+                  .then(res=>res.text())
+                  .then(data => {
+                    document.querySelector("#msg").innerHTML = data;
+                    document.querySelector("#sub").value = "Submit"
+                });
+        })
 
-                form.addEventListener('submit', e => {
-                e.preventDefault()
-                 fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => alert("Thanks for Registering..! You can S..."))
-                .catch(error => console.error('Error!', error.message))
-            })
-
-             </script>
-
+            </script>
 
 
     </form>

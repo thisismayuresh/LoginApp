@@ -35,6 +35,7 @@ class User {
     } elseif (!strpos($this->email, '@') || !strpos($this->email, '.')) {
       $this->error .= "<li>Enter a valid email.</li>";   
     } else { 
+      
       $db = new database();
       if($db->checkUniquEmail($this->email)) {
         $this->error .= "<li>Email already exists!. Try another.</li>";   
